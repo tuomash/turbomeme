@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE web-app
+		PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+		"http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+	<listener>
+		<listener-class>net.sf.ehcache.constructs.web.ShutdownListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>GetMemeServlet</servlet-name>
+		<servlet-class>com.turbomeme.servlet.GetMemeServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>SaveMemeServlet</servlet-name>
+		<servlet-class>com.turbomeme.servlet.SaveMemeServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>GetMemeServlet</servlet-name>
+		<url-pattern>/m/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>SaveMemeServlet</servlet-name>
+		<url-pattern>/save</url-pattern>
+	</servlet-mapping>
+</web-app>

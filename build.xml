@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="package-all" basedir=".">
+	<property name="build" location="build"/>
+	<property name="dist" location="dist"/>
+	<property name="frontend" location="frontend"/>
+	<property name="lib" location="backend/lib"/>
+	<property name="resource" location="backend/resource"/>
+	<property name="src" location="backend/src"/>
+
+	<path id="classpath">
+		<fileset dir="${lib}" includes="**/*.jar"/>
+	</path>
+
+	<path id="instrument.classpath">
+		<pathelement location="${build}"/>
+		<path location="${lib}/activejdbc-instrumentation-1.4.11.jar"/>
+		<path location="${lib}/javassist-3.18.2-GA.jar"/>
+		<path location="${lib}/activejdbc-1.4.11.jar"/>
+	</path>
+
+	<target name="setup">
+		<delete dir="${dist}" failonerror="true"/>
+		<mkdir dir="${dist}"/>
+	</target>
+
+	<target name="compile">
+		<delete dir="${build}" failonerror="true"/>
+		<mkdir dir="${build}"/>
+
+		<javac srcdir="${src}"
+					 destdir="${build}"
+					 fork="yes"
+					 classpathref="classpath"
+				/>
+	</target>
+
+	<target name="instrument">
+		<java classname="org.javalite.instrumentation.Main">
+			<sysproperty key="outputDirectory" value="${build}"/>
+			<classpath refid="instrument.classpath"/>
+		</java>
+	</target>
+
+	<target name="package-backend">
+		<war destfile="${dist}/turbomeme.war" webxml="backend/resource/web.xml">
+			<lib dir="${lib}"/>
+			<classes dir="${build}"/>
+			<classes dir="${resource}"/>
+		</war>
+	</target>
+
+	<target name="package-frontend">
+		<zip destfile="${dist}/frontend.zip">
+			<fileset dir="${frontend}"/>
+		</zip>
+	</target>
+
+	<target name="package-all"
+					depends="setup, compile, instrument, package-backend,
+					package-frontend">
+	</target>
+
+	<!-- For IntelliJ. -->
+	<property name="intellij.out.dir" value="out/production/turbomeme/"/>
+
+	<path id="intellij.instrument.classpath">
+		<pathelement location="${intellij.out.dir}"/>
+		<path location="${lib}/activejdbc-instrumentation-1.4.11.jar"/>
+		<path location="${lib}/javassist-3.18.2-GA.jar"/>
+		<path location="${lib}/activejdbc-1.4.11.jar"/>
+	</path>
+
+	<target name="intellij.instrument">
+		<java classname="org.javalite.instrumentation.Main">
+			<sysproperty key="outputDirectory" value="${intellij.out.dir}"/>
+			<classpath refid="intellij.instrument.classpath"/>
+		</java>
+	</target>
+</project>
