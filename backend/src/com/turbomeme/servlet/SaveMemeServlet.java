@@ -26,177 +26,170 @@ import java.net.URL;
 
 public final class SaveMemeServlet extends HttpServlet
 {
-	private static final Logger log;
+  private static final Logger log;
 
-	static
-	{
-		log = LoggerFactory.getLogger(SaveMemeServlet.class);
-	}
+  static
+  {
+    log = LoggerFactory.getLogger(SaveMemeServlet.class);
+  }
 
-	private MemeBank memeBank;
+  private MemeBank memeBank;
 
-	@Override
-	public void init(final ServletConfig config) throws ServletException
-	{
-		super.init(config);
-		final URL url;
+  @Override
+  public void init(final ServletConfig config) throws ServletException
+  {
+    super.init(config);
+    final URL url;
 
-		try
-		{
-			url = config.getServletContext().getResource(
-					"/WEB-INF/classes/image-data.json");
-		}
-		catch (final MalformedURLException e)
-		{
-			throw new ServletException("Couldn't load meme bank!", e);
-		}
+    try
+    {
+      url = config.getServletContext().getResource("/WEB-INF/classes/image-data.json");
+    }
+    catch (final MalformedURLException e)
+    {
+      throw new ServletException("Couldn't load meme bank!", e);
+    }
 
-		memeBank =	ImageDataGenerator.loadMemeBank(url.getPath());
-	}
+    memeBank = ImageDataGenerator.loadMemeBank(url.getPath());
+  }
 
-	@Override
-	protected void doPost(final HttpServletRequest request,
-												final HttpServletResponse response)
-			throws ServletException, IOException
-	{
-		try
-		{
-			response.sendRedirect(process(request));
-		}
-		catch (final InvalidInputException e)
-		{
-			log.error(e.getMessage(), e);
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-		}
-		catch (final Exception e)
-		{
-			log.error(e.getMessage(), e);
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-		}
-	}
+  @Override
+  protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException
+  {
+    try
+    {
+      response.sendRedirect(process(request));
+    }
+    catch (final InvalidInputException e)
+    {
+      log.error(e.getMessage(), e);
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+    }
+    catch (final Exception e)
+    {
+      log.error(e.getMessage(), e);
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
+  }
 
-	private String process(final HttpServletRequest request)
-			throws InvalidInputException
-	{
-		final String memeImageIdStr = request.getParameter("meme-image-id");
+  private String process(final HttpServletRequest request) throws InvalidInputException
+  {
+    final String memeImageIdStr = request.getParameter("meme-image-id");
 
-		if (memeImageIdStr == null)
-		{
-			throw new InvalidInputException("Meme image id string was null!");
-		}
-		else if (memeImageIdStr.isEmpty())
-		{
-			throw new InvalidInputException("Meme image id string was empty!");
-		}
+    if (memeImageIdStr == null)
+    {
+      throw new InvalidInputException("Meme image id string was null!");
+    }
+    else if (memeImageIdStr.isEmpty())
+    {
+      throw new InvalidInputException("Meme image id string was empty!");
+    }
 
-		final Integer memeImageId;
+    final Integer memeImageId;
 
-		try
-		{
-			memeImageId = Integer.parseInt(memeImageIdStr);
-		}
-		catch (final NumberFormatException e)
-		{
-			throw new InvalidInputException("Couldn't parse meme image id! " +
-					"[memeImageId=" + memeImageIdStr + "]", e);
-		}
+    try
+    {
+      memeImageId = Integer.parseInt(memeImageIdStr);
+    }
+    catch (final NumberFormatException e)
+    {
+      throw new InvalidInputException("Couldn't parse meme image id! " +
+          "[memeImageId=" + memeImageIdStr + "]", e);
+    }
 
-		if (!memeBank.hasMeme(memeImageId))
-		{
-			throw new InvalidInputException("No such meme! [memeImageId=" +
-					memeImageId + "]");
-		}
+    if (!memeBank.hasMeme(memeImageId))
+    {
+      throw new InvalidInputException("No such meme! [memeImageId=" +
+          memeImageId + "]");
+    }
 
-		final String jsonStr = request.getParameter("json");
+    final String jsonStr = request.getParameter("json");
 
-		if (jsonStr == null)
-		{
-			throw new InvalidInputException("Meme json string was null!");
-		}
-		else if (jsonStr.isEmpty())
-		{
-			throw new InvalidInputException("Meme json string was empty!");
-		}
+    if (jsonStr == null)
+    {
+      throw new InvalidInputException("Meme json string was null!");
+    }
+    else if (jsonStr.isEmpty())
+    {
+      throw new InvalidInputException("Meme json string was empty!");
+    }
 
-		final JSONParser parser = new JSONParser();
-		final Object jsonObj;
+    final JSONParser parser = new JSONParser();
+    final Object jsonObj;
 
-		try
-		{
-			jsonObj = parser.parse(jsonStr);
-		}
-		catch (final ParseException e)
-		{
-			throw new InvalidInputException("Couldn't parse meme json string! " +
-					"[jsonStr=" + jsonStr + "]", e);
-		}
+    try
+    {
+      jsonObj = parser.parse(jsonStr);
+    }
+    catch (final ParseException e)
+    {
+      throw new InvalidInputException("Couldn't parse meme json string! " +
+          "[jsonStr=" + jsonStr + "]", e);
+    }
 
-		final JSONObject json = (JSONObject) jsonObj;
+    final JSONObject json = (JSONObject) jsonObj;
 
-		if (!json.containsKey("objects"))
-		{
-			throw new InvalidInputException("Meme json doesn't contain key 'objects'!"
-					+ "[jsonStr=" + jsonStr + "]");
-		}
+    if (!json.containsKey("objects"))
+    {
+      throw new InvalidInputException("Meme json doesn't contain key 'objects'!" + "[jsonStr=" + jsonStr + "]");
+    }
 
-		final JSONArray objects = (JSONArray) json.get("objects");
+    final JSONArray objects = (JSONArray) json.get("objects");
 
-		if (objects.isEmpty())
-		{
-			throw new InvalidInputException("Objects array is empty! [jsonStr=" +
-					jsonStr + "]");
-		}
+    if (objects.isEmpty())
+    {
+      throw new InvalidInputException("Objects array is empty! [jsonStr=" +
+          jsonStr + "]");
+    }
 
-		final MemeImage image = memeBank.getMeme(memeImageId);
+    final MemeImage image = memeBank.getMeme(memeImageId);
 
-		for (int i=0; i < objects.size(); i++)
-		{
-			final JSONObject obj = (JSONObject) objects.get(i);
-			final String type = (String) obj.get("type");
+    for (int i = 0; i < objects.size(); i++)
+    {
+      final JSONObject obj = (JSONObject) objects.get(i);
+      final String type = (String) obj.get("type");
 
-			// Only validate images
-			if (!type.equals("image"))
-			{
-				continue;
-			}
+      // Only validate images
+      if (!type.equals("image"))
+      {
+        continue;
+      }
 
-			if (!obj.containsKey("src"))
-			{
-				throw new InvalidInputException("Object json doesn't contain key 'src'!"
-						+ "[obj=" + obj + "]");
-			}
+      if (!obj.containsKey("src"))
+      {
+        throw new InvalidInputException("Object json doesn't contain key 'src'!" + "[obj=" + obj + "]");
+      }
 
-			final String uriStr = (String) obj.get("src");
-			final URI uri;
+      final String uriStr = (String) obj.get("src");
+      final URI uri;
 
-			try
-			{
-				uri = new URI(uriStr);
-			}
-			catch (final URISyntaxException e)
-			{
-				throw new InvalidInputException(e);
-			}
+      try
+      {
+        uri = new URI(uriStr);
+      }
+      catch (final URISyntaxException e)
+      {
+        throw new InvalidInputException(e);
+      }
 
-			if (!uri.getHost().equals(Environment.HOST))
-			{
-				throw new InvalidInputException("Input URI host doesn't match server " +
-						"host! [uriHost=" + uri.getHost() + ", serverHost=" +
-						Environment.HOST + "]");
-			}
+      if (!uri.getHost().equals(Environment.HOST))
+      {
+        throw new InvalidInputException("Input URI host doesn't match server " +
+            "host! [uriHost=" + uri.getHost() + ", serverHost=" +
+            Environment.HOST + "]");
+      }
 
-			final String path = StringUtils.substring(uri.getPath(), 1);
+      final String path = StringUtils.substring(uri.getPath(), 1);
 
-			if (!image.getWwwPath().equals(path))
-			{
-				throw new InvalidInputException("Input URI path doesn't match meme " +
-						"image's path! [path=" + path + ", memeImagePath=" +
-						image.getWwwPath() + "]");
-			}
-		}
+      if (!image.getWwwPath().equals(path))
+      {
+        throw new InvalidInputException("Input URI path doesn't match meme " +
+            "image's path! [path=" + path + ", memeImagePath=" +
+            image.getWwwPath() + "]");
+      }
+    }
 
-		final Meme meme = MemeDAO.insert(jsonStr, image.getWidth(),
-				image.getHeight(), image.getId());
-		return meme.createURL();
-	}
+    final Meme meme = MemeDAO.insert(jsonStr, image.getWidth(), image.getHeight(), image.getId());
+    return meme.createURL();
+  }
 }

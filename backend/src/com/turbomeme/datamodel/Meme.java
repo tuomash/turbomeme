@@ -5,12 +5,12 @@ import org.javalite.activejdbc.Model;
 
 public class Meme extends Model
 {
-	public Meme()
-	{
-	}
+  public Meme()
+  {
+  }
 
-	public String createURL()
-	{
-		return Environment.createRootURL() + "m/" + get("hash");
-	}
+  public String createURL()
+  {
+    return Environment.createRootURL() + "m/" + get("hash");
+  }
 }

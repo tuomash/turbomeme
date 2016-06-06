@@ -1,64 +1,60 @@
 body {
-    width: 900px;
-    margin: 0 auto;
-    text-align: center;
+  width: 900px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 textarea {
-    resize: none;
+  resize: none;
 }
 
 #title {
-    font-family: Impact;
-    font-size: 80px;
-    font-style: normal;
-    color: #FFFFFF;
-    text-shadow:
-        -3px -3px 0 #000,
-        3px -3px 0 #000,
-        -3px 3px 0 #000,
-        3px 3px 0 #000;
+  font-family: Impact;
+  font-size: 80px;
+  font-style: normal;
+  color: #FFFFFF;
+  text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000;
 }
 
 #image-canvas-and-filters {
-    overflow: hidden; /* add this to contain floated children */
-    overflow-y: scroll;
+  overflow: hidden; /* add this to contain floated children */
+  overflow-y: scroll;
 }
 
 #image-canvas {
-    height: auto;
-    margin: 0 auto;
-    padding: 10px;
-    position: relative;
-    float:left;
+  height: auto;
+  margin: 0 auto;
+  padding: 10px;
+  position: relative;
+  float: left;
 }
 
 #filters {
-    margin-left: 5px;
-    text-align: left;
-    float: left;
+  margin-left: 5px;
+  text-align: left;
+  float: left;
 }
 
 #c {
-    display: block;
-    border: 5px solid #000000;
+  display: block;
+  border: 5px solid #000000;
 }
 
 div.grid-item {
-    float: left;
-    width: 100px;
-    height: 100px;
+  float: left;
+  width: 100px;
+  height: 100px;
 }
 
 #section2 {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 #section3 {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 #publish-button {
-    width: 300px;
-    height: 120px;
+  width: 300px;
+  height: 120px;
 }
