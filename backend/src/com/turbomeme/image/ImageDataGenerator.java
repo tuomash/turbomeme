@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import javax.imageio.ImageIO;
 import java.io.*;
@@ -84,17 +83,9 @@ public final class ImageDataGenerator implements Constants
       memeBank.setIdToMemeMap(idToMemeMap);
       memeBank.setFileNameToMemeMap(fileNameToMemeMap);
     }
-    catch (final FileNotFoundException e)
+    catch (final Exception e)
     {
-      e.printStackTrace();
-    }
-    catch (final IOException e)
-    {
-      e.printStackTrace();
-    }
-    catch (final ParseException e)
-    {
-      e.printStackTrace();
+      throw new IllegalArgumentException("Couldn't load meme bank! [path=" + path + "]", e);
     }
 
     return memeBank;
@@ -178,7 +169,7 @@ public final class ImageDataGenerator implements Constants
       }
       catch (final IOException e)
       {
-        throw new IllegalStateException("Couldnt load image!", e);
+        throw new IllegalStateException("Couldn't load image!", e);
       }
     }
 

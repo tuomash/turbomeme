@@ -4,29 +4,28 @@
          updateCheck="true" monitoring="autodetect"
          dynamicConfig="true">
 
-    <diskStore path="java.io.tmpdir"/>
-    <transactionManagerLookup class="net.sf.ehcache.transaction.manager.DefaultTransactionManagerLookup"
+  <diskStore path="java.io.tmpdir"/>
+  <transactionManagerLookup class="net.sf.ehcache.transaction.manager.DefaultTransactionManagerLookup"
                               properties="jndiName=java:/TransactionManager" propertySeparator=";"/>
-    <cacheManagerEventListenerFactory class="" properties=""/>
+  <cacheManagerEventListenerFactory class="" properties=""/>
 
-    <defaultCache
-            maxEntriesLocalHeap="10000"
-            eternal="false"
-            timeToIdleSeconds="120"
-            timeToLiveSeconds="120"
-            diskSpoolBufferSizeMB="30"
-            maxEntriesLocalDisk="10000000"
-            diskExpiryThreadIntervalSeconds="120"
-            memoryStoreEvictionPolicy="LRU">
-        <persistence strategy="localTempSwap"/>
-    </defaultCache>
+  <defaultCache maxEntriesLocalHeap="10000"
+                eternal="false"
+                timeToIdleSeconds="120"
+                timeToLiveSeconds="120"
+                diskSpoolBufferSizeMB="30"
+                maxEntriesLocalDisk="10000000"
+                diskExpiryThreadIntervalSeconds="120"
+                memoryStoreEvictionPolicy="LRU">
+    <persistence strategy="localTempSwap"/>
+  </defaultCache>
 
-    <cache name="htmlCache"
-           maxEntriesLocalHeap="1000"
-           eternal="false"
-           timeToIdleSeconds="300"
-           timeToLiveSeconds="600"
-           memoryStoreEvictionPolicy="LFU"
-           transactionalMode="off">
-    </cache>
+  <cache name="htmlCache"
+         maxEntriesLocalHeap="1000"
+         eternal="false"
+         timeToIdleSeconds="300"
+         timeToLiveSeconds="600"
+         memoryStoreEvictionPolicy="LFU"
+         transactionalMode="off">
+  </cache>
 </ehcache>

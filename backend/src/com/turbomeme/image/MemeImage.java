@@ -95,11 +95,6 @@ public final class MemeImage implements Constants, Comparable<MemeImage>
     this.height = height;
   }
 
-  public String getDescription()
-  {
-    return description;
-  }
-
   public void setDescription(final String description)
   {
     this.description = description;
