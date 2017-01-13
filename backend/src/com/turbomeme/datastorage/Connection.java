@@ -2,6 +2,11 @@ package com.turbomeme.datastorage;
 
 import org.javalite.activejdbc.Base;
 
+/**
+ * Database connection.
+ *
+ * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
+ */
 public final class Connection
 {
   private static final String DB_DRIVER;

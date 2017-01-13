@@ -2,9 +2,18 @@ package com.turbomeme.image;
 
 import com.google.common.base.Preconditions;
 import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+/**
+ * Meme image variables. See resource/image-data.json.
+ *
+ * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
+ */
 public final class MemeImage implements Constants, Comparable<MemeImage>
 {
+  private static final Logger log = LoggerFactory.getLogger(MemeImage.class);
+
   private Integer id;
   private Integer width;
   private Integer height;
@@ -14,7 +23,7 @@ public final class MemeImage implements Constants, Comparable<MemeImage>
 
   public void validate()
   {
-    System.out.println("Validating: " + fileName);
+    log.info("Validating: " + fileName);
     Preconditions.checkNotNull(id, "Id cannot be null!");
     Preconditions.checkArgument(id > 0, "Id cannot be 0 or smaller!");
 

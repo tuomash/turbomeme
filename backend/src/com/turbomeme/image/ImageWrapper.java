@@ -2,6 +2,11 @@ package com.turbomeme.image;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * Simple BufferedImage wrapper.
+ *
+ * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
+ */
 public final class ImageWrapper
 {
   private final String fileName;

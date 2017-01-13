@@ -8,37 +8,27 @@ import com.turbomeme.image.MemeImage;
 import com.turbomeme.servlet.Environment;
 import com.turbomeme.servlet.InvalidInputException;
 import com.turbomeme.servlet.request.CreateMemeRequest;
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.Map;
 
+/**
+ * Meme controller.
+ *
+ * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
+ */
 public final class MemeController
 {
-  private static final Logger log = LoggerFactory.getLogger(MemeController.class);
-
   private MemeBank memeBank;
-  private Cache cache;
 
   public MemeController(final MemeBank memeBank)
   {
     Preconditions.checkNotNull(memeBank, "Meme bank cannot be null!");
     this.memeBank = memeBank;
-
-    // Configure Ehcache
-    final CacheManager manager = CacheManager.getInstance();
-    cache = manager.getCache("htmlCache");
   }
 
   public Meme create(final CreateMemeRequest request) throws InvalidInputException, ParseException
@@ -97,7 +87,7 @@ public final class MemeController
       }
       catch (final URISyntaxException e)
       {
-        throw new InvalidInputException(e);
+        throw new InvalidInputException("Invalid URI!", e);
       }
 
       if (!uri.getHost().equals(Environment.HOST))

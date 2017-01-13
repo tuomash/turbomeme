@@ -9,6 +9,7 @@ import org.json.simple.parser.ParseException;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * Meme creation request.
  *
  * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
  */
@@ -67,11 +68,11 @@ public final class CreateMemeRequest
 
     try
     {
-      memeImageContent = JSONUtil.parse(jsonStr);
+      memeImageContent = JSONUtil.parseObject(jsonStr);
     }
     catch (final ParseException e)
     {
-      throw new InvalidInputException(e);
+      throw new InvalidInputException("Couldn't parse json!", e);
     }
 
     return new CreateMemeRequest(memeImageId, memeImageContent);

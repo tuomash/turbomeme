@@ -5,13 +5,22 @@ import com.google.gson.GsonBuilder;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import java.io.*;
 import java.util.*;
 
-public final class ImageDataGenerator implements Constants
+/**
+ * Creates the image data file used by the backend. See resource/image-data.json.
+ *
+ * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
+ */
+public final class ImageDataGenerator implements Constants, Paths
 {
+  private static final Logger log = LoggerFactory.getLogger(ImageDataGenerator.class);
+
   public static void main(final String[] args)
   {
     if (doesImageDataJsonExist())
@@ -26,13 +35,13 @@ public final class ImageDataGenerator implements Constants
 
   private static boolean doesImageDataJsonExist()
   {
-    final File jsonFile = new File(Paths.BACKEND_RESOURCE_DIR + BACKEND_IMAGE_DATA_JSON_FILE_NAME);
+    final File jsonFile = new File(BACKEND_RESOURCE_DIR + BACKEND_IMAGE_DATA_JSON_FILE_NAME);
     return jsonFile.exists();
   }
 
   private static void appendImageDataJson()
   {
-    final MemeBank bank = loadMemeBank(Paths.BACKEND_RESOURCE_DIR + BACKEND_IMAGE_DATA_JSON_FILE_NAME);
+    final MemeBank bank = loadMemeBank(BACKEND_RESOURCE_DIR + BACKEND_IMAGE_DATA_JSON_FILE_NAME);
     final int originalSize = bank.getIdToMemeMap().size();
 
     for (final ImageWrapper wrapper : loadImageWrappers())
@@ -40,7 +49,7 @@ public final class ImageDataGenerator implements Constants
       // New meme
       if (!bank.getFileNameToMemeMap().containsKey(wrapper.getFileName()))
       {
-        System.out.println("Creating new meme: " + wrapper.getFileName());
+        log.info("Creating new meme: " + wrapper.getFileName());
         createMemeImage(bank.getIdToMemeMap(), wrapper);
       }
     }
@@ -50,12 +59,12 @@ public final class ImageDataGenerator implements Constants
 
     if (diff > 0)
     {
-      System.out.println("Added " + diff + " new memes");
+      log.info("Added " + diff + " new memes");
       writeImageDataJsonFile(new ArrayList<>(bank.getIdToMemeMap().values()));
     }
     else
     {
-      System.out.println("No new memes");
+      log.info("No new memes");
     }
   }
 
@@ -116,14 +125,14 @@ public final class ImageDataGenerator implements Constants
     try
     {
       // Write backend file
-      FileWriter file = new FileWriter(Paths.BACKEND_RESOURCE_DIR + BACKEND_IMAGE_DATA_JSON_FILE_NAME);
+      FileWriter file = new FileWriter(BACKEND_RESOURCE_DIR + BACKEND_IMAGE_DATA_JSON_FILE_NAME);
       final Gson gson = new GsonBuilder().setPrettyPrinting().create();
       file.write(gson.toJson(data));
       file.flush();
       file.close();
 
       // Write frontend file
-      file = new FileWriter(Paths.FRONTEND_DIR + FRONTEND_IMAGE_DATA_JSON_FILE_NAME);
+      file = new FileWriter(FRONTEND_DIR + FRONTEND_IMAGE_DATA_JSON_FILE_NAME);
       file.write("var imageData = " + data.toJSONString());
       file.flush();
       file.close();
@@ -156,12 +165,12 @@ public final class ImageDataGenerator implements Constants
 
   public static List<ImageWrapper> loadImageWrappers()
   {
-    final File imagesDir = new File(Paths.IMAGES_DIR);
+    final File imagesDir = new File(IMAGES_DIR);
     final List<ImageWrapper> wrappers = new ArrayList<>();
 
     for (final File file : imagesDir.listFiles())
     {
-      System.out.println("Reading: " + file.getAbsolutePath());
+      log.info("Reading: " + file.getAbsolutePath());
 
       try
       {

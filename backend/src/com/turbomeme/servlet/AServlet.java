@@ -20,6 +20,11 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Global paths.
+ *
+ * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
+ */
 public abstract class AServlet extends HttpServlet implements Constants
 {
   protected MemeController controller;

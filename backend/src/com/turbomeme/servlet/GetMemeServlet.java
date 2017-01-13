@@ -15,6 +15,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Returns the requested meme as an HTML page.
+ *
+ * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
+ */
 public final class GetMemeServlet extends AServlet
 {
   private static final Logger log = LoggerFactory.getLogger(GetMemeServlet.class);

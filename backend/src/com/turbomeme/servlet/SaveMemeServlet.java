@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Saves new memes into the database.
+ *
+ * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
+ */
 public final class SaveMemeServlet extends AServlet
 {
   private static final Logger log = LoggerFactory.getLogger(SaveMemeServlet.class);
@@ -25,7 +30,7 @@ public final class SaveMemeServlet extends AServlet
       // Print html and store it to cache for instant access
       storeHtmlToCache((String) meme.get("hash"), printHtml(meme));
 
-      // Redirect to meme's address
+      // Redirect user to meme's address
       response.sendRedirect(meme.createURL());
     }
     catch (final InvalidInputException e)

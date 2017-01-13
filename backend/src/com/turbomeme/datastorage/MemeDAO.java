@@ -8,6 +8,11 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+/**
+ * Meme DAO for CRUD operations.
+ *
+ * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
+ */
 public final class MemeDAO
 {
   private static final int MAX_TRIES;

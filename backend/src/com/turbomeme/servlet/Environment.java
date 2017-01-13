@@ -1,5 +1,10 @@
 package com.turbomeme.servlet;
 
+/**
+ * Global environment.
+ *
+ * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
+ */
 public final class Environment
 {
   public static final String HOST;

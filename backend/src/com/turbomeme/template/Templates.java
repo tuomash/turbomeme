@@ -10,6 +10,11 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Map;
 
+/**
+ * Simple template utility.
+ *
+ * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
+ */
 public final class Templates
 {
   private Configuration configuration;

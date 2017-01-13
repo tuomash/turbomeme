@@ -1,5 +1,10 @@
 package com.turbomeme.image;
 
+/**
+ * Global constants.
+ *
+ * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
+ */
 public interface Constants
 {
   String BACKEND_IMAGE_DATA_JSON_FILE_NAME = "image-data.json";
