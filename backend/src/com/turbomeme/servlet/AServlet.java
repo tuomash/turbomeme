@@ -65,8 +65,8 @@ public abstract class AServlet extends HttpServlet implements Constants
     data.put("json", StringEscapeUtils.escapeHtml4((String) meme.get("data")));
     data.put("canvasWidth", meme.get("canvas_width"));
     data.put("canvasHeight", meme.get("canvas_height"));
-    data.put("fabricJsPath", Environment.createRootURL() + "lib/fabricjs/1.5.0/fabric.min.js");
-    data.put("templateJsPath", Environment.createRootURL() + "template.js");
+    data.put("fabricJsPath", Environment.ROOT_URL + "lib/fabricjs/1.5.0/fabric.min.js");
+    data.put("templateJsPath", Environment.ROOT_URL + "template.js");
 
     // Generate output html
     return templates.print("meme.ftl", data);

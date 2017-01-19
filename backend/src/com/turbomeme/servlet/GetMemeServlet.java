@@ -29,29 +29,29 @@ public final class GetMemeServlet extends AServlet
   {
     try
     {
-      response.getWriter().write(getHtml(request.getPathInfo()));
-      response.setContentType("text/html;charset=UTF-8");
-      response.setStatus(HttpServletResponse.SC_OK);
-    }
-    catch (final InvalidInputException e1)
-    {
-      log.error("Invalid input!", e1);
+      final String html = getHtml(request.getPathInfo());
 
       // Invalid input, show 404
-      final Map<String, Object> data = new HashMap<>();
-      data.put("url", Environment.createRootURL());
-
-      try
+      if (html == null)
       {
+        final Map<String, Object> data = new HashMap<>();
+        data.put("url", Environment.ROOT_URL);
         response.getWriter().write(templates.print("404.ftl", data));
         response.setStatus(HttpServletResponse.SC_NOT_FOUND);
       }
-      catch (final TemplateException e2)
+      else
       {
-        log.error("Couldn't write 404 page!", e2);
-        response.getWriter().write("Internal server error");
-        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        response.getWriter().write(html);
+        response.setStatus(HttpServletResponse.SC_OK);
       }
+
+      response.setContentType("text/html;charset=UTF-8");
+    }
+    catch (final TemplateException e)
+    {
+      log.error("Couldn't write 404 page!", e);
+      response.getWriter().write("Internal server error");
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
     catch (final Exception e)
     {
@@ -65,15 +65,18 @@ public final class GetMemeServlet extends AServlet
   {
     if (pathInfo == null)
     {
-      throw new InvalidInputException("Path info cannot be null!");
+      log.debug("Path info cannot be null!");
+      return null;
     }
     else if (pathInfo.isEmpty())
     {
-      throw new InvalidInputException("Path info cannot be empty!");
+      log.debug("Path info cannot be empty!");
+      return null;
     }
     else if (pathInfo.length() != MEME_HASH_WITH_SLASH_LENGTH)
     {
-      throw new InvalidInputException("Path info is of illegal length!");
+      log.debug("Path info is of illegal length!");
+      return null;
     }
 
     final String hash = StringUtils.substring(pathInfo, 1);
@@ -83,21 +86,18 @@ public final class GetMemeServlet extends AServlet
 
     if (cachedHtml != null)
     {
-      if (log.isDebugEnabled())
-      {
-        log.debug("Getting from cache. [hash=" + hash + "]");
-      }
-
+      log.debug("Getting from cache. [hash=" + hash + "]");
       return (String) cachedHtml.getObjectValue();
     }
     else
     {
-      // Find from database
+      // No cache hit, find from database
       final Meme meme = MemeDAO.find(hash);
 
       if (meme == null)
       {
-        throw new InvalidInputException("Meme not found! [hash=" + hash + "]");
+        log.debug("Meme not found! [hash=" + hash + "]");
+        return null;
       }
 
       final String html = printHtml(meme);

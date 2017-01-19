@@ -1,5 +1,7 @@
 package com.turbomeme.servlet;
 
+import com.google.common.base.Preconditions;
+
 /**
  * Global environment.
  *
@@ -7,41 +9,30 @@ package com.turbomeme.servlet;
  */
 public final class Environment
 {
+  public static final String PROTOCOL;
   public static final String HOST;
-
-  public static String PORT;
+  public static final String PORT;
+  public static final String ROOT_URL;
 
   static
   {
+    PROTOCOL = "http://";
     HOST = System.getProperty("turbomemeHost");
 
-    if (HOST == null)
-    {
-      throw new IllegalArgumentException("Host cannot be null!");
-    }
-    else if (HOST.isEmpty())
-    {
-      throw new IllegalArgumentException("Host cannot be empty!");
-    }
+    Preconditions.checkNotNull(PROTOCOL, "Protocol cannot be null!");
+    Preconditions.checkNotNull(!PROTOCOL.isEmpty(), "Protocol cannot be empty!");
+    Preconditions.checkNotNull(HOST, "Host cannot be null!");
+    Preconditions.checkState(!HOST.isEmpty(), "Host cannot be empty!");
 
     PORT = System.getProperty("turbomemePort");
 
-    if (PORT == null)
-    {
-      PORT = "";
-    }
-  }
+    String url = PROTOCOL + PORT;
 
-  public static String createRootURL()
-  {
-    String url = "http://" + Environment.HOST;
-
-    if (Environment.PORT != null && !Environment.PORT.isEmpty())
+    if (PORT != null && !PORT.isEmpty())
     {
-      url = url + ":" + Environment.PORT;
+      url = url + ":" + PORT;
     }
 
-    url = url + "/";
-    return url;
+    ROOT_URL = url + "/";
   }
 }

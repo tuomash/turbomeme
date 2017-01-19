@@ -2,6 +2,7 @@ package com.turbomeme.image;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.turbomeme.util.FileUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -13,6 +14,8 @@ import java.io.*;
 import java.util.*;
 
 /**
+ * Command line utility.
+ *
  * Creates the image data file used by the backend. See resource/image-data.json.
  *
  * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
@@ -44,9 +47,9 @@ public final class ImageDataGenerator implements Constants, Paths
     final MemeBank bank = loadMemeBank(BACKEND_RESOURCE_DIR + BACKEND_IMAGE_DATA_JSON_FILE_NAME);
     final int originalSize = bank.getIdToMemeMap().size();
 
-    for (final ImageWrapper wrapper : loadImageWrappers())
+    for (final RawImage wrapper : loadImages())
     {
-      // New meme
+      // Didn't find from bank which means this is a new meme
       if (!bank.getFileNameToMemeMap().containsKey(wrapper.getFileName()))
       {
         log.info("Creating new meme: " + wrapper.getFileName());
@@ -104,7 +107,7 @@ public final class ImageDataGenerator implements Constants, Paths
   {
     final Map<Integer, MemeImage> memeImageMap = new HashMap<>();
 
-    for (final ImageWrapper wrapper : loadImageWrappers())
+    for (final RawImage wrapper : loadImages())
     {
       createMemeImage(memeImageMap, wrapper);
     }
@@ -122,28 +125,15 @@ public final class ImageDataGenerator implements Constants, Paths
       data.add(image.toJSON());
     }
 
-    try
-    {
-      // Write backend file
-      FileWriter file = new FileWriter(BACKEND_RESOURCE_DIR + BACKEND_IMAGE_DATA_JSON_FILE_NAME);
-      final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-      file.write(gson.toJson(data));
-      file.flush();
-      file.close();
+    // Write backend file
+    final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    FileUtils.writeFile(BACKEND_RESOURCE_DIR + BACKEND_IMAGE_DATA_JSON_FILE_NAME, gson.toJson(data));
 
-      // Write frontend file
-      file = new FileWriter(FRONTEND_DIR + FRONTEND_IMAGE_DATA_JSON_FILE_NAME);
-      file.write("var imageData = " + data.toJSONString());
-      file.flush();
-      file.close();
-    }
-    catch (final IOException e)
-    {
-      e.printStackTrace();
-    }
+    // Write frontend file
+    FileUtils.writeFile(FRONTEND_DIR + FRONTEND_IMAGE_DATA_JSON_FILE_NAME, "var imageData = " + data.toJSONString());
   }
 
-  private static void createMemeImage(final Map<Integer, MemeImage> memes, final ImageWrapper wrapper)
+  private static void createMemeImage(final Map<Integer, MemeImage> memes, final RawImage wrapper)
   {
     final Random random = new Random();
     final MemeImage image = new MemeImage();
@@ -163,25 +153,25 @@ public final class ImageDataGenerator implements Constants, Paths
     memes.put(image.getId(), image);
   }
 
-  public static List<ImageWrapper> loadImageWrappers()
+  protected static List<RawImage> loadImages()
   {
     final File imagesDir = new File(IMAGES_DIR);
-    final List<ImageWrapper> wrappers = new ArrayList<>();
+    final List<RawImage> images = new ArrayList<>();
 
     for (final File file : imagesDir.listFiles())
     {
-      log.info("Reading: " + file.getAbsolutePath());
+      log.info("Reading file: " + file.getAbsolutePath());
 
       try
       {
-        wrappers.add(new ImageWrapper(file.getName(), ImageIO.read(file)));
+        images.add(new RawImage(file.getName(), ImageIO.read(file)));
       }
       catch (final IOException e)
       {
-        throw new IllegalStateException("Couldn't load image!", e);
+        throw new IllegalStateException("Couldn't load image! [path=" + file.getAbsolutePath() + "]", e);
       }
     }
 
-    return wrappers;
+    return images;
   }
 }

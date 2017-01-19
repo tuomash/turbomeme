@@ -2,8 +2,8 @@ package com.turbomeme.image;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.turbomeme.util.JSONUtil;
-import org.apache.commons.io.FileUtils;
+import com.turbomeme.util.FileUtils;
+import com.turbomeme.util.JSONUtils;
 import org.json.simple.JSONArray;
 
 import javax.imageio.ImageIO;
@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Command line utility.
+ *
  * Creates the image sheet related files used by the backend and frontend. See resource/image-sheet.jpg,
  * resource/image-map.json and resource/image-order.json.
  *
@@ -36,10 +38,10 @@ public final class ImageSheetGenerator implements Constants, Paths
 
       // Write backend file
       final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-      writeFile(BACKEND_RESOURCE_DIR + BACKEND_IMAGE_MAP_FILE_NAME, gson.toJson(imageMap));
+      FileUtils.writeFile(BACKEND_RESOURCE_DIR + BACKEND_IMAGE_MAP_FILE_NAME, gson.toJson(imageMap));
 
       // Write frontend file
-      writeFile(FRONTEND_DIR + FRONTEND_IMAGE_MAP_FILE_NAME, "var imageMap = " + imageMap.toJSONString());
+      FileUtils.writeFile(FRONTEND_DIR + FRONTEND_IMAGE_MAP_FILE_NAME, "var imageMap = " + imageMap.toJSONString());
     }
     catch (final Exception e)
     {
@@ -67,7 +69,7 @@ public final class ImageSheetGenerator implements Constants, Paths
   {
     final Map<String, BufferedImage> fileNameToImageMap = new HashMap<>();
 
-    for (final ImageWrapper wrapper : ImageDataGenerator.loadImageWrappers())
+    for (final RawImage wrapper : ImageDataGenerator.loadImages())
     {
       fileNameToImageMap.put(wrapper.getFileName(), wrapper.getImage());
     }
@@ -77,8 +79,8 @@ public final class ImageSheetGenerator implements Constants, Paths
 
     try
     {
-      final String contents = FileUtils.readFileToString(new File(BACKEND_RESOURCE_DIR + BACKEND_IMAGE_ORDER_JSON_FILE_NAME), Charset.defaultCharset());
-      imageOrderJson = JSONUtil.parseArray(contents);
+      final String contents = org.apache.commons.io.FileUtils.readFileToString(new File(BACKEND_RESOURCE_DIR + BACKEND_IMAGE_ORDER_JSON_FILE_NAME), Charset.defaultCharset());
+      imageOrderJson = JSONUtils.parseArray(contents);
     }
     catch (final Exception e)
     {
@@ -110,19 +112,6 @@ public final class ImageSheetGenerator implements Constants, Paths
         column = new JSONArray();
         imageMap.add(column);
       }
-    }
-  }
-
-  private static void writeFile(final String path, final String content)
-  {
-    try (final FileWriter file = new FileWriter(path))
-    {
-      file.write(content);
-      file.flush();
-    }
-    catch (final IOException e)
-    {
-      throw new IllegalStateException("Couldn't write file! [path=" + path + "]", e);
     }
   }
 }

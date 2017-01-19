@@ -3,16 +3,16 @@ package com.turbomeme.image;
 import java.awt.image.BufferedImage;
 
 /**
- * Simple BufferedImage wrapper.
+ * Simple container for image file name and data.
  *
  * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
  */
-public final class ImageWrapper
+public final class RawImage
 {
   private final String fileName;
   private final BufferedImage image;
 
-  public ImageWrapper(final String fileName, final BufferedImage image)
+  public RawImage(final String fileName, final BufferedImage image)
   {
     this.fileName = fileName;
     this.image = image;

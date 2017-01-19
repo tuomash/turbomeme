@@ -7,11 +7,11 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /**
- * Simple JSON utility.
+ * JSON utility functions.
  *
  * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
  */
-public final class JSONUtil
+public final class JSONUtils
 {
   public static JSONObject parseObject(final String jsonStr) throws ParseException
   {
