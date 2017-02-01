@@ -61,7 +61,7 @@ public final class GetMemeServlet extends AServlet
     }
   }
 
-  private String getHtml(final String pathInfo) throws InvalidInputException, IOException, TemplateException
+  private String getHtml(final String pathInfo) throws IOException, TemplateException
   {
     if (pathInfo == null)
     {
