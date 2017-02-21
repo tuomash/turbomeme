@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Global paths.
+ * Parent servlet for the rest of the meme servlets.
  *
  * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
  */
