@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public final class Templates
 {
-  private Configuration configuration;
+  private final Configuration configuration;
 
   public Templates(final ServletContext context, final String path)
   {

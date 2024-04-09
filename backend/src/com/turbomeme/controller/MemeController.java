@@ -23,7 +23,7 @@ import java.net.URISyntaxException;
  */
 public final class MemeController
 {
-  private MemeBank memeBank;
+  private final MemeBank memeBank;
 
   public MemeController(final MemeBank memeBank)
   {
