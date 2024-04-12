@@ -1,38 +1,39 @@
 package com.turbomeme.servlet;
 
-import com.google.common.base.Preconditions;
-
 /**
- * Global environment.
- *
- * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
+ * Global environment variables.
  */
 public final class Environment
 {
-  public static final String PROTOCOL;
-  public static final String HOST;
-  public static final String PORT;
   public static final String ROOT_URL;
+
+  public static String PROTOCOL = "http://";
+  public static String HOST = "localhost";
+  public static String PORT = "8080";
 
   static
   {
-    PROTOCOL = "http://";
-    HOST = System.getProperty("turbomemeHost");
+    final String protocol = System.getProperty("protocol");
 
-    Preconditions.checkNotNull(PROTOCOL, "Protocol cannot be null!");
-    Preconditions.checkNotNull(!PROTOCOL.isEmpty(), "Protocol cannot be empty!");
-    Preconditions.checkNotNull(HOST, "Host cannot be null!");
-    Preconditions.checkState(!HOST.isEmpty(), "Host cannot be empty!");
-
-    PORT = System.getProperty("turbomemePort");
-
-    String url = PROTOCOL + PORT;
-
-    if (PORT != null && !PORT.isEmpty())
+    if (protocol != null && !protocol.isEmpty())
     {
-      url = url + ":" + PORT;
+      PROTOCOL = protocol;
     }
 
-    ROOT_URL = url + "/";
+    final String host = System.getProperty("host");
+
+    if (host != null && !host.isEmpty())
+    {
+      HOST = host;
+    }
+
+    final String port = System.getProperty("port");
+
+    if (port != null && !port.isEmpty())
+    {
+      PORT = port;
+    }
+
+    ROOT_URL = PROTOCOL + HOST + PORT + "/";
   }
 }
