@@ -4,8 +4,6 @@ import java.awt.image.BufferedImage;
 
 /**
  * Simple container for image file name and data.
- *
- * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
  */
 public final class RawImage
 {

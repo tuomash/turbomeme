@@ -12,8 +12,6 @@ import java.io.IOException;
 
 /**
  * Saves new memes into the database.
- *
- * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
  */
 public final class SaveMemeServlet extends AServlet
 {

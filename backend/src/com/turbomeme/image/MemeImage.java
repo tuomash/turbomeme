@@ -7,8 +7,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Meme image variables. See resource/image-data.json.
- *
- * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
  */
 public final class MemeImage implements Constants, Comparable<MemeImage>
 {

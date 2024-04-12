@@ -2,8 +2,6 @@ package com.turbomeme.image;
 
 /**
  * Global constants.
- *
- * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
  */
 public interface Constants
 {

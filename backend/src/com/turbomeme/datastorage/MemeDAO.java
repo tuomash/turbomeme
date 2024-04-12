@@ -10,8 +10,6 @@ import java.util.TimeZone;
 
 /**
  * Meme DAO for CRUD operations.
- *
- * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
  */
 public final class MemeDAO
 {

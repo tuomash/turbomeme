@@ -19,8 +19,6 @@ import java.util.Map;
  *
  * Creates the image sheet related files used by the backend and frontend. See resource/image-sheet.jpg,
  * resource/image-map.json and resource/image-order.json.
- *
- * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
  */
 public final class ImageSheetGenerator implements Constants, Paths
 {

@@ -18,8 +18,6 @@ import java.net.URISyntaxException;
 
 /**
  * Meme controller.
- *
- * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
  */
 public final class MemeController
 {

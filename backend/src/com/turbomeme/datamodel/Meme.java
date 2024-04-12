@@ -5,8 +5,6 @@ import org.javalite.activejdbc.Model;
 
 /**
  * Meme data model. See resource/schema.sql.
- *
- * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
  */
 public class Meme extends Model
 {

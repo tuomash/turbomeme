@@ -4,8 +4,6 @@ import java.io.File;
 
 /**
  * Global paths.
- *
- * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
  */
 public interface Paths
 {

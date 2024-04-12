@@ -4,8 +4,6 @@ import java.util.Map;
 
 /**
  * Holds all the meme images.
- *
- * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
  */
 public final class MemeBank
 {

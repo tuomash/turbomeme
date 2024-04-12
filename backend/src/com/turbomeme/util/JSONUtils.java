@@ -8,8 +8,6 @@ import org.json.simple.parser.ParseException;
 
 /**
  * JSON utility functions.
- *
- * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
  */
 public final class JSONUtils
 {

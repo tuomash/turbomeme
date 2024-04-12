@@ -22,8 +22,6 @@ import java.util.Map;
 
 /**
  * Parent servlet for the rest of the meme servlets.
- *
- * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
  */
 public abstract class AServlet extends HttpServlet implements Constants
 {

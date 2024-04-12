@@ -4,8 +4,6 @@ import org.javalite.activejdbc.Base;
 
 /**
  * Database connection.
- *
- * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
  */
 public final class Connection
 {

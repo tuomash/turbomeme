@@ -5,8 +5,6 @@ import java.io.IOException;
 
 /**
  * File utility functions.
- *
- * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
  */
 public final class FileUtils
 {

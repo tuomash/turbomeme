@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Meme creation request.
- *
- * @author Tuomas Hynninen (tuomas.hynninen@gmail.com)
  */
 public final class CreateMemeRequest
 {
