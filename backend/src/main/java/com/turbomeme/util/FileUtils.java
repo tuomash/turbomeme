@@ -1,4 +1,4 @@
-package main.java.com.turbomeme.util;
+package com.turbomeme.util;
 
 import java.io.FileWriter;
 import java.io.IOException;

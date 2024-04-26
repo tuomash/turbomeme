@@ -1,6 +1,6 @@
-package main.java.com.turbomeme.datamodel;
+package com.turbomeme.datamodel;
 
-import main.java.com.turbomeme.servlet.Environment;
+import com.turbomeme.servlet.Environment;
 import org.javalite.activejdbc.Model;
 
 /**

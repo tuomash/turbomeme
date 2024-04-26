@@ -1,9 +1,9 @@
-package main.java.com.turbomeme.image;
+package com.turbomeme.image;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import main.java.com.turbomeme.util.FileUtils;
-import main.java.com.turbomeme.util.JSONUtils;
+import com.turbomeme.util.FileUtils;
+import com.turbomeme.util.JSONUtils;
 import org.json.JSONArray;
 
 import javax.imageio.ImageIO;
@@ -16,7 +16,6 @@ import java.util.Map;
 
 /**
  * Command line utility.
- *
  * Creates the image sheet related files used by the backend and frontend. See resource/image-sheet.jpg,
  * resource/image-map.json and resource/image-order.json.
  */

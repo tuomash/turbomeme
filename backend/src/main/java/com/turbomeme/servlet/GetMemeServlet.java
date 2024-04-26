@@ -1,8 +1,8 @@
-package main.java.com.turbomeme.servlet;
+package com.turbomeme.servlet;
 
 import freemarker.template.TemplateException;
-import main.java.com.turbomeme.datamodel.Meme;
-import main.java.com.turbomeme.datastorage.MemeDAO;
+import com.turbomeme.datamodel.Meme;
+import com.turbomeme.datastorage.MemeDAO;
 import net.sf.ehcache.Element;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -23,7 +23,7 @@ public final class GetMemeServlet extends AServlet
   private static final Logger log = LoggerFactory.getLogger(GetMemeServlet.class);
 
   @Override
-  protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException
+  protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws IOException
   {
     try
     {

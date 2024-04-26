@@ -1,8 +1,8 @@
-package main.java.com.turbomeme.image;
+package com.turbomeme.image;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import main.java.com.turbomeme.util.FileUtils;
+import com.turbomeme.util.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;

@@ -1,13 +1,13 @@
-package main.java.com.turbomeme.controller;
+package com.turbomeme.controller;
 
 import com.google.common.base.Preconditions;
-import main.java.com.turbomeme.datamodel.Meme;
-import main.java.com.turbomeme.datastorage.MemeDAO;
-import main.java.com.turbomeme.image.MemeBank;
-import main.java.com.turbomeme.image.MemeImage;
-import main.java.com.turbomeme.servlet.Environment;
-import main.java.com.turbomeme.servlet.InvalidInputException;
-import main.java.com.turbomeme.servlet.request.CreateMemeRequest;
+import com.turbomeme.datamodel.Meme;
+import com.turbomeme.datastorage.MemeDAO;
+import com.turbomeme.image.MemeBank;
+import com.turbomeme.image.MemeImage;
+import com.turbomeme.servlet.Environment;
+import com.turbomeme.servlet.InvalidInputException;
+import com.turbomeme.servlet.request.CreateMemeRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;

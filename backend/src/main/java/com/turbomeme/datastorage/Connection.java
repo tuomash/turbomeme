@@ -1,4 +1,4 @@
-package main.java.com.turbomeme.datastorage;
+package com.turbomeme.datastorage;
 
 import org.javalite.activejdbc.Base;
 

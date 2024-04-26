@@ -1,4 +1,4 @@
-package main.java.com.turbomeme.servlet;
+package com.turbomeme.servlet;
 
 /**
  * Global environment variables.

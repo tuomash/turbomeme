@@ -1,8 +1,8 @@
-package main.java.com.turbomeme.servlet.request;
+package com.turbomeme.servlet.request;
 
 import com.google.common.base.Preconditions;
-import main.java.com.turbomeme.servlet.InvalidInputException;
-import main.java.com.turbomeme.util.JSONUtils;
+import com.turbomeme.servlet.InvalidInputException;
+import com.turbomeme.util.JSONUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 

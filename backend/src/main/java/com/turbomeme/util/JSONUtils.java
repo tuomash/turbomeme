@@ -1,4 +1,4 @@
-package main.java.com.turbomeme.util;
+package com.turbomeme.util;
 
 import com.google.common.base.Preconditions;
 import org.json.JSONArray;

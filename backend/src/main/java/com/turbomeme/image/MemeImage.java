@@ -1,4 +1,4 @@
-package main.java.com.turbomeme.image;
+package com.turbomeme.image;
 
 import com.google.common.base.Preconditions;
 import org.json.JSONObject;

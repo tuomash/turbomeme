@@ -1,6 +1,6 @@
-package main.java.com.turbomeme.datastorage;
+package com.turbomeme.datastorage;
 
-import main.java.com.turbomeme.datamodel.Meme;
+import com.turbomeme.datamodel.Meme;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.javalite.activejdbc.DBException;
 

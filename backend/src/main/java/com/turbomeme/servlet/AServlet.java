@@ -1,11 +1,11 @@
-package main.java.com.turbomeme.servlet;
+package com.turbomeme.servlet;
 
 import freemarker.template.TemplateException;
-import main.java.com.turbomeme.controller.MemeController;
-import main.java.com.turbomeme.datamodel.Meme;
-import main.java.com.turbomeme.image.Constants;
-import main.java.com.turbomeme.image.ImageDataGenerator;
-import main.java.com.turbomeme.template.Templates;
+import com.turbomeme.controller.MemeController;
+import com.turbomeme.datamodel.Meme;
+import com.turbomeme.image.Constants;
+import com.turbomeme.image.ImageDataGenerator;
+import com.turbomeme.template.Templates;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;

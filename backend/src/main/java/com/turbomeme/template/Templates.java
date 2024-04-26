@@ -1,4 +1,4 @@
-package main.java.com.turbomeme.template;
+package com.turbomeme.template;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;

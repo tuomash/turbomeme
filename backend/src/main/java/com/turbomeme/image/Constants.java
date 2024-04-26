@@ -1,4 +1,4 @@
-package main.java.com.turbomeme.image;
+package com.turbomeme.image;
 
 /**
  * Global constants.

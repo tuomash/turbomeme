@@ -1,7 +1,7 @@
-package main.java.com.turbomeme.servlet;
+package com.turbomeme.servlet;
 
-import main.java.com.turbomeme.datamodel.Meme;
-import main.java.com.turbomeme.servlet.request.CreateMemeRequest;
+import com.turbomeme.datamodel.Meme;
+import com.turbomeme.servlet.request.CreateMemeRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
