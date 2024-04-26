@@ -17,7 +17,7 @@ import java.util.*;
 
 /**
  * Command line utility.
- * Creates the image data file used by the backend. See resource/image-data.json.
+ * Creates the image data file used by the backend. See src/main/java/resources/image-data.json.
  */
 public final class ImageDataGenerator implements Constants, Paths
 {

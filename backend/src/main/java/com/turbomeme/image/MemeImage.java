@@ -56,12 +56,12 @@ public final class MemeImage implements Constants, Comparable<MemeImage>
   public static MemeImage fromJSON(final JSONObject json)
   {
     final MemeImage image = new MemeImage();
-    image.setId(((Long) json.get("id")).intValue());
-    image.setWidth(((Long) json.get("width")).intValue());
-    image.setHeight(((Long) json.get("height")).intValue());
-    image.setDescription((String) json.get("description"));
-    image.setFileName((String) json.get("fileName"));
-    image.setWwwPath((String) json.get("wwwPath"));
+    image.setId(json.getInt("id"));
+    image.setWidth(json.getInt("width"));
+    image.setHeight(json.getInt("height"));
+    image.setDescription(json.getString("description"));
+    image.setFileName(json.getString("fileName"));
+    image.setWwwPath(json.getString("wwwPath"));
     image.validate();
     return image;
   }
