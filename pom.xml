@@ -15,13 +15,13 @@
     <dependency>
       <groupId>org.javalite</groupId>
       <artifactId>activejdbc</artifactId>
-      <version>1.4.11</version>
+      <version>3.4-j11</version>
     </dependency>
 
     <dependency>
       <groupId>org.javalite</groupId>
       <artifactId>activejdbc-instrumentation</artifactId>
-      <version>1.4.11</version>
+      <version>3.4-j11</version>
     </dependency>
 
     <dependency>
@@ -63,7 +63,7 @@
     <dependency>
       <groupId>org.javalite</groupId>
       <artifactId>javalite-common</artifactId>
-      <version>1.4.11</version>
+      <version>3.4-j11</version>
     </dependency>
 
     <dependency>
