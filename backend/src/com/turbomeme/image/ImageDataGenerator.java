@@ -3,19 +3,19 @@ package com.turbomeme.image;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.turbomeme.util.FileUtils;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.*;
 
 /**
  * Command line utility.
- *
  * Creates the image data file used by the backend. See resource/image-data.json.
  */
 public final class ImageDataGenerator implements Constants, Paths
@@ -76,13 +76,11 @@ public final class ImageDataGenerator implements Constants, Paths
 
     try
     {
-      final JSONParser parser = new JSONParser();
-      final Object obj = parser.parse(new FileReader(jsonFile));
-      final JSONArray array = (JSONArray) obj;
+      final JSONArray array = new JSONArray(Files.readString(jsonFile.toPath(), StandardCharsets.UTF_8));
       final Map<Integer, MemeImage> idToMemeMap = new HashMap<>();
       final Map<String, MemeImage> fileNameToMemeMap = new HashMap<>();
 
-      for (int i = 0; i < array.size(); i++)
+      for (int i = 0; i < array.length(); i++)
       {
         final JSONObject json = (JSONObject) array.get(i);
         final MemeImage image = MemeImage.fromJSON(json);
@@ -120,7 +118,7 @@ public final class ImageDataGenerator implements Constants, Paths
 
     for (final MemeImage image : memes)
     {
-      data.add(image.toJSON());
+      data.put(image.toJSON());
     }
 
     // Write backend file
@@ -128,7 +126,7 @@ public final class ImageDataGenerator implements Constants, Paths
     FileUtils.writeFile(BACKEND_RESOURCE_DIR + BACKEND_IMAGE_DATA_JSON_FILE_NAME, gson.toJson(data));
 
     // Write frontend file
-    FileUtils.writeFile(FRONTEND_DIR + FRONTEND_IMAGE_DATA_JSON_FILE_NAME, "var imageData = " + data.toJSONString());
+    FileUtils.writeFile(FRONTEND_DIR + FRONTEND_IMAGE_DATA_JSON_FILE_NAME, "var imageData = " + data);
   }
 
   private static void createMemeImage(final Map<Integer, MemeImage> memes, final RawImage wrapper)

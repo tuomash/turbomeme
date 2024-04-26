@@ -1,7 +1,7 @@
 package com.turbomeme.image;
 
 import com.google.common.base.Preconditions;
-import org.json.simple.JSONObject;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

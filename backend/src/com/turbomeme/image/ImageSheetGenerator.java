@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.turbomeme.util.FileUtils;
 import com.turbomeme.util.JSONUtils;
-import org.json.simple.JSONArray;
+import org.json.JSONArray;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -39,7 +39,7 @@ public final class ImageSheetGenerator implements Constants, Paths
       FileUtils.writeFile(BACKEND_RESOURCE_DIR + BACKEND_IMAGE_MAP_FILE_NAME, gson.toJson(imageMap));
 
       // Write frontend file
-      FileUtils.writeFile(FRONTEND_DIR + FRONTEND_IMAGE_MAP_FILE_NAME, "var imageMap = " + imageMap.toJSONString());
+      FileUtils.writeFile(FRONTEND_DIR + FRONTEND_IMAGE_MAP_FILE_NAME, "var imageMap = " + imageMap);
     }
     catch (final Exception e)
     {
@@ -86,21 +86,21 @@ public final class ImageSheetGenerator implements Constants, Paths
     }
 
     JSONArray column = new JSONArray();
-    imageMap.add(column);
+    imageMap.put(column);
 
     // Setup graphics context for rendering images
     final Graphics2D graphics2D = (Graphics2D) imageSheet.getGraphics();
     int x = 0;
     int y = 0;
 
-    for (int i = 0; i < imageOrderJson.size(); i++)
+    for (int i = 0; i < imageOrderJson.length(); i++)
     {
       final String fileName = (String) imageOrderJson.get(i);
       final BufferedImage memeImage = fileNameToImageMap.get(fileName);
 
       graphics2D.drawImage(memeImage, x, y, IMAGE_SHEET_ICON_WIDTH, IMAGE_SHEET_ICON_HEIGHT, null);
       x = x + IMAGE_SHEET_ICON_WIDTH;
-      column.add(bank.getFileNameToMemeMap().get(fileName).getId());
+      column.put(bank.getFileNameToMemeMap().get(fileName).getId());
 
       // End of row
       if (x >= IMAGE_SHEET_WIDTH)
@@ -108,7 +108,7 @@ public final class ImageSheetGenerator implements Constants, Paths
         x = 0;
         y = y + IMAGE_SHEET_ICON_HEIGHT;
         column = new JSONArray();
-        imageMap.add(column);
+        imageMap.put(column);
       }
     }
   }

@@ -3,8 +3,8 @@ package com.turbomeme.servlet.request;
 import com.google.common.base.Preconditions;
 import com.turbomeme.servlet.InvalidInputException;
 import com.turbomeme.util.JSONUtils;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -68,7 +68,7 @@ public final class CreateMemeRequest
     {
       memeImageContent = JSONUtils.parseObject(jsonStr);
     }
-    catch (final ParseException e)
+    catch (final JSONException e)
     {
       throw new InvalidInputException("Couldn't parse json!", e);
     }

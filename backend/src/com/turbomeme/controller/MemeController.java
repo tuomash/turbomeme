@@ -9,9 +9,8 @@ import com.turbomeme.servlet.Environment;
 import com.turbomeme.servlet.InvalidInputException;
 import com.turbomeme.servlet.request.CreateMemeRequest;
 import org.apache.commons.lang3.StringUtils;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -29,12 +28,12 @@ public final class MemeController
     this.memeBank = memeBank;
   }
 
-  public Meme create(final CreateMemeRequest request) throws InvalidInputException, ParseException
+  public Meme create(final CreateMemeRequest request) throws InvalidInputException
   {
     return create(request.getMemeImageId(), request.getMemeImageContent());
   }
 
-  public Meme create(final Integer memeImageId, final JSONObject memeImageContent) throws InvalidInputException, ParseException
+  public Meme create(final Integer memeImageId, final JSONObject memeImageContent) throws InvalidInputException
   {
     if (!memeBank.hasMeme(memeImageId))
     {
@@ -48,7 +47,7 @@ public final class MemeController
 
   public void validateImageContent(final MemeImage image, final JSONObject json) throws InvalidInputException
   {
-    if (!json.containsKey("objects"))
+    if (!json.has("objects"))
     {
       throw new InvalidInputException("Meme json doesn't contain key 'objects'!");
     }
@@ -60,7 +59,7 @@ public final class MemeController
       throw new InvalidInputException("Objects array is empty!");
     }
 
-    for (int i = 0; i < objects.size(); i++)
+    for (int i = 0; i < objects.length(); i++)
     {
       final JSONObject obj = (JSONObject) objects.get(i);
       final String type = (String) obj.get("type");
@@ -71,7 +70,7 @@ public final class MemeController
         continue;
       }
 
-      if (!obj.containsKey("src"))
+      if (!obj.has("src"))
       {
         throw new InvalidInputException("Object json doesn't contain key 'src'!" + "[obj=" + obj + "]");
       }
