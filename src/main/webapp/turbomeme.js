@@ -496,10 +496,12 @@ function reset() {
 
 function show() {
   document.getElementById('section2').style.display = "block";
+  document.getElementById('section3').style.display = "block";
 }
 
 function hide() {
   document.getElementById('section2').style.display = "none";
+  document.getElementById('section3').style.display = "none";
 }
 
 //
