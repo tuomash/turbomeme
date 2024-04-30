@@ -8,9 +8,10 @@ import org.javalite.activejdbc.Base;
 public final class Connection
 {
   private static final String DB_DRIVER = "org.postgresql.Driver";
-  private static final String DB_HOST = System.getProperty("turbomemeDbHost");
-  private static final String DB_USERNAME = System.getProperty("turbomemeDbUsername");
-  private static final String DB_PASSWORD = System.getProperty("turbomemeDbPassword");
+  private static final String DB_HOST = "jdbc:postgresql://" + System.getProperty("turbomeme.db.host") + ":"
+      + System.getProperty("turbomeme.db.port") + "/" + System.getProperty("turbomeme.db.name");
+  private static final String DB_USERNAME = System.getProperty("turbomeme.db.username");
+  private static final String DB_PASSWORD = System.getProperty("turbomeme.db.password");
 
   public void open()
   {
