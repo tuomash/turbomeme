@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Turbomeme.com - Brace yourselves... more meme garbage is coming</title>
+    <title>Turbomeme - Brace yourselves... more meme garbage is coming</title>
   </head>
   <body>
     <canvas id="c"></canvas>
