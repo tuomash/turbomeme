@@ -42,6 +42,6 @@ public final class Environment
       NAME = name;
     }
 
-    ROOT_URL = PROTOCOL + HOST + PORT + "/" + (!NAME.isEmpty() ? NAME + "/" : "");
+    ROOT_URL = PROTOCOL + HOST + ":" + PORT + "/" + (!NAME.isEmpty() ? NAME + "/" : "");
   }
 }

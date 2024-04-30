@@ -41,7 +41,7 @@ public final class MemeDAO
       final Meme meme = new Meme();
       final int dataStorageId = 1;
       meme.set("datastorage_id", dataStorageId);
-      meme.set("hash", dataStorageId + RandomStringUtils.randomAlphanumeric(7));
+      meme.set("hash", dataStorageId + "-" + RandomStringUtils.randomAlphanumeric(7));
       meme.set("data", data);
       meme.set("created", new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("Europe/Helsinki")).getTime().getTime()));
       meme.set("canvas_width", canvasWidth);
@@ -74,7 +74,7 @@ public final class MemeDAO
         // Duplicate hash, try again
         if (e.getMessage().contains(PG_DUPLICATE_KEY_ERROR))
         {
-          meme.set("hash", dataStorageId + RandomStringUtils.randomAlphanumeric(7));
+          meme.set("hash", dataStorageId + "-" + RandomStringUtils.randomAlphanumeric(7));
           tries++;
         }
         else

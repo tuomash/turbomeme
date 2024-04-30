@@ -17,6 +17,6 @@ public interface Constants
   int IMAGE_SHEET_ICON_WIDTH = 100;
   int IMAGE_SHEET_ICON_HEIGHT = 100;
   String WWW_PATH = "img/memes/";
-  int MEME_HASH_LENGTH = 8;
+  int MEME_HASH_LENGTH = 9;
   int MEME_HASH_WITH_SLASH_LENGTH = MEME_HASH_LENGTH + 1;
 }
