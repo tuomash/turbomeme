@@ -9,7 +9,7 @@ import com.turbomeme.template.Templates;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
