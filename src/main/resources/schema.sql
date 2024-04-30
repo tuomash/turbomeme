@@ -1,4 +1,4 @@
-CREATE TABLE meme
+CREATE TABLE memes
 (
   data text NOT NULL,
   datastorage_id integer NOT NULL,

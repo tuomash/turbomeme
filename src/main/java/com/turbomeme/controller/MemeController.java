@@ -93,12 +93,21 @@ public final class MemeController
             "host! [uriHost=" + uri.getHost() + ", serverHost=" + Environment.HOST + "]");
       }
 
-      final String path = StringUtils.substring(uri.getPath(), 1);
+      final String imagePath;
 
-      if (!image.getWwwPath().equals(path))
+      if (!Environment.NAME.isEmpty())
+      {
+        imagePath = "/" + Environment.NAME + "/" + image.getWwwPath();
+      }
+      else
+      {
+        imagePath = "/" + image.getWwwPath();
+      }
+
+      if (!imagePath.equals(uri.getPath()))
       {
         throw new InvalidInputException("Input URI path doesn't match meme image's path! " +
-            "[path=" + path + ", memeImagePath=" + image.getWwwPath() + "]");
+            "[path=" + uri.getPath() + ", memeImagePath=" + imagePath + "]");
       }
     }
   }

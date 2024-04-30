@@ -4,7 +4,7 @@ import com.turbomeme.servlet.Environment;
 import org.javalite.activejdbc.Model;
 
 /**
- * Meme data model. See resource/schema.sql.
+ * Meme data model. See src/main/resources/schema.sql.
  */
 public class Meme extends Model
 {

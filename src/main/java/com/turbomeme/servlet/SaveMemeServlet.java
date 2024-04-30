@@ -18,7 +18,7 @@ public final class SaveMemeServlet extends AServlet
   private static final Logger log = LoggerFactory.getLogger(SaveMemeServlet.class);
 
   @Override
-  protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException
+  protected void doPost(final HttpServletRequest request, final HttpServletResponse response)
   {
     try
     {
