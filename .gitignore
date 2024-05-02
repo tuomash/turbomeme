@@ -3,3 +3,5 @@ dist/
 out/
 target/
 turbomeme.iml
+.env
+env.bat
