@@ -1,0 +1,38 @@
+services:
+  db:
+    build:
+      dockerfile: Dockerfile-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+  app:
+    build:
+      context: .
+      secrets:
+        - app_name
+        - db_host
+        - db_port
+        - db_name
+        - db_username
+        - db_password
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+secrets:
+  app_name:
+    environment: TURBOMEME_APP_NAME
+  db_host:
+    environment: TURBOMEME_DB_HOST
+  db_port:
+    environment: TURBOMEME_DB_PORT
+  db_name:
+    environment: TURBOMEME_DB_NAME
+  db_username:
+    environment: TURBOMEME_DB_USERNAME
+  db_password:
+    environment: TURBOMEME_DB_PASSWORD
