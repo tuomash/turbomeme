@@ -4,6 +4,15 @@
 
 Apply different kinds of filters to meme images and publish them!  
 
+## Tech stack
+
+- Java 17
+- ActiveJDBC
+- Maven
+- Tomcat
+- PostgreSQL
+- Docker
+
 ## Building and running on Windows using IntelliJ
 
 - Install Java JDK 17, IntelliJ Community Edition, and Docker Desktop
