@@ -7,6 +7,7 @@ Apply different kinds of filters to meme images and publish them!
 ## Tech stack
 
 - Java 17
+- Plain JavaScript, HTML and CSS
 - ActiveJDBC
 - Maven
 - Tomcat
